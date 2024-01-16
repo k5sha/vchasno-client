@@ -1,0 +1,17 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.alwaysShowStatus": true,
+    "eslint.validate": [
+        "vue",
+        "javascript",
+        "javascriptreact",
+        "html",
+    ],
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "commentTranslate.multiLineMerge": true,
+}
