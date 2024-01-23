@@ -14,6 +14,19 @@
   </main>
 </template>
 
+<script lang="ts">
+import { defineComponent, provide } from 'vue'
+import { ApolloClients } from '@vue/apollo-composable'
+import { apolloClient } from './main'
+
+  export default defineComponent({
+    name: 'App',
+    setup() {
+      provide(ApolloClients, apolloClient)
+    },
+  })
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

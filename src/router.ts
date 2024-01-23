@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from './views/Home.vue';
+import HomeVue from './views/Home.vue'
 
 export default createRouter({
 	history: createWebHistory(),
 	routes: [
 		{
 			path: '/',
-			component: Home,
+			component: HomeVue,
 		},
 		{
 			path: '/about',
@@ -15,6 +15,10 @@ export default createRouter({
 		{
 			path: '/contact',
 			component: () => import('./views/Contact.vue'),
+		},
+		{
+			path: '/profile',
+			component: () => import('./views/Profile.vue'),
 		},
 	],
 })
