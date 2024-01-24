@@ -31,31 +31,35 @@ export default {
     data() {
         return {
             updateUserInfo: {
-				id: 1,
                 email: null,
                 phone: null,
             },
-			file: null
+			file: null as File | null
         }
     },
     methods: {
-		onFileChanged({ target: { files = [] } }) {
-				this.file = files[0]
-		},
-        async createUser () {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onFileChanged(event: any) {
+        const inputElement = event.target as HTMLInputElement;
+        if (inputElement.files && inputElement.files.length > 0) {
+          this.file = inputElement.files[0] || null;
+        }
+      },
+    async createUser () {
 			console.log(this.file)
             const userInfoUpdated = await this.$apollo.mutate({
                 mutation: EDIT_USER_INFO_MUTATION,
                 variables: {
-                    // updateUserInfo: this.updateUserInfo,
-					file: this.file
+                   email: this.updateUserInfo.email,
+                   phone: this.updateUserInfo.phone,
+                   file: this.file
                 },
-				context: {
-                    hasUpload: true,
-					headers: {
-						'Content-Type': 'multipart/form-data',
-						'x-apollo-operation-name': 'windows', 
-					},
+                context: {
+                  hasUpload: true,
+                  headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'x-apollo-operation-name': 'windows', 
+                  },
                 },
             })
 
