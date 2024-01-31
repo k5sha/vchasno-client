@@ -1,13 +1,34 @@
 <template>
   <nav>
     <router-link to="/">
-      Home
+      Головна
     </router-link> | <router-link to="/about">
-      About
+      Тест2
     </router-link> |
     <router-link to="/contact">
-      Contact
-    </router-link>
+      Тест1
+    </router-link> |
+    <div v-if="isAuthenticated">
+      <router-link to="/profile">
+        Профіль
+      </router-link>
+      <router-link to="/logout">
+        Вийти
+      </router-link>
+    </div>
+    <div v-else>
+      <router-link
+        to="/login"
+      >
+        Увійти
+      </router-link>
+      /
+      <router-link
+        to="/registration"
+      >
+        Зареєструватися
+      </router-link>
+    </div>
   </nav>
   <main>
     <router-view />
@@ -17,13 +38,17 @@
 <script lang="ts">
 import { defineComponent, provide } from 'vue'
 import { ApolloClients } from '@vue/apollo-composable'
-import { apolloClient } from './main'
+import { apolloClient } from './vue-apollo'
+import { mapGetters } from 'vuex'
 
   export default defineComponent({
     name: 'App',
     setup() {
       provide(ApolloClients, apolloClient)
     },
+    computed: {
+		...mapGetters({isAuthenticated: 'account/isAuthenticated'})
+	},
   })
 </script>
 
