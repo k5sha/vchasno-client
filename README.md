@@ -24,6 +24,12 @@ In the world of modern web development, creating a reliable and efficient client
 npm run dev
 ```
 
+##### Env file
+
+```
+VITE_SERVER_API=http://localhost:3000/
+```
+
 ## Developers
 
 - [k5sha.](https://github.com/k5sha)
