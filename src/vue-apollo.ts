@@ -8,7 +8,7 @@ import { createApolloProvider } from '@vue/apollo-option';
 const AUTH_TOKEN = 'access-token'
 
 // Http endpoint
-const httpEndpoint ='http://localhost:3000/graphql'
+const httpEndpoint = import.meta.env.VITE_SERVER_API+'graphql'
 
 // Config
 const httpLink = createUploadLink({
@@ -63,6 +63,7 @@ export function createProvider () {
     defaultClient: apolloClient,
     errorHandler (error) {
       // eslint-disable-next-line no-console
+      alert(error)
       console.log('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message)
     }
   })
