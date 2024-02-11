@@ -3,7 +3,7 @@
   <div class="profile_view">
     <h1>{{ user.userInfo.second_name }} {{ user.userInfo.first_name }} {{ user.userInfo.patronymic }}</h1>
     <img
-      :src="`http://localhost:3000/${user.userInfo.image}`"
+      :src="`${api_url}${user.userInfo.image}`"
       style="width: 128px; height: 128px;"
     >
   </div>
@@ -75,6 +75,7 @@ export default {
     name: 'GraphQLTest',
     data() {
         return {
+          api_url: import.meta.env.VITE_SERVER_API,
             updateUserInfo: {
                 first_name: null,
                 second_name: null,
@@ -83,7 +84,7 @@ export default {
                 phone: null,
             },
 			file: null as File | null
-        }
+      }
     },
     computed: {
       ...mapGetters({user: 'account/user'})
