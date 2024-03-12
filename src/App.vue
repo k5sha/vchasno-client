@@ -1,38 +1,5 @@
 <template>
-  <nav>
-    <router-link to="/">
-      Головна
-    </router-link> | <router-link to="/about">
-      Тест2
-    </router-link> |
-    <router-link to="/contact">
-      Тест1
-    </router-link> |
-    <div v-if="isAuthenticated">
-      <router-link to="/profile">
-        Профіль
-      </router-link>
-      <router-link to="/logout">
-        Вийти
-      </router-link>
-    </div>
-    <div v-else>
-      <router-link
-        to="/login"
-      >
-        Увійти
-      </router-link>
-      /
-      <router-link
-        to="/registration"
-      >
-        Зареєструватися
-      </router-link>
-    </div>
-  </nav>
-  <main>
-    <router-view />
-  </main>
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -51,14 +18,3 @@ import { mapGetters } from 'vuex'
 	},
   })
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
