@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from './store'
 import HomeVue from './views/Home.vue'
+import { loadLayoutMiddleware } from './middlewares/loadLayoutMiddleware'
+import { authMiddleware } from './middlewares/authMiddleware'
 
+
+// Router
 export const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{
 			path: '/',
 			component: HomeVue,
+			meta: {
+            	layout: 'AppLayoutHome'
+       		}
 		},
 		{
 			path: '/about',
@@ -25,10 +31,16 @@ export const router = createRouter({
 		{
 			path: '/login',
 			component: () => import('./views/Login.vue'),
+			meta: {
+				layout: 'AppLayoutAuth'
+			}
 		},
 		{
 			path: '/registration',
 			component: () => import('./views/Registration.vue'),
+			meta: {
+				layout: 'AppLayoutAuth'
+			}
 		},
 		{
 			path: '/logout',
@@ -37,30 +49,9 @@ export const router = createRouter({
 	],
 })
 
-router.beforeEach((to, from, next) => {
+// Layout system
+router.beforeEach(loadLayoutMiddleware)
 
-  // Check if the user is logged in
-  if(!store.getters['account/isAuthenticated'] && localStorage.getItem('access-token') != undefined) {
-	store.commit("account/SET_TOKEN", localStorage.getItem('access-token'));
-	store.dispatch("account/setUser")
-  }
-  const isUserLoggedIn = store.getters['account/isAuthenticated']
 
-  if(isUserLoggedIn && (to.path == '/login' || to.path == '/logout')) {
-	store.dispatch('account/logOut')
-	return next()
-  }
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!isUserLoggedIn) {
-      store.dispatch('account/logOut')
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+// Auth system
+router.beforeEach(authMiddleware)
