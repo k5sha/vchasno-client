@@ -110,7 +110,6 @@ export default {
             await this.$apollo.mutate({
                 mutation: EDIT_USER_INFO_MUTATION,
                 variables: {
-                  
                     first_name: this.updateUserInfo.first_name != '' ? this.updateUserInfo.first_name : null,
                     second_name: this.updateUserInfo.second_name != '' ? this.updateUserInfo.second_name : null,
                     patronymic: this.updateUserInfo.patronymic != '' ? this.updateUserInfo.patronymic : null,
